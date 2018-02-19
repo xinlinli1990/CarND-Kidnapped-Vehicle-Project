@@ -9,7 +9,20 @@
 #ifndef PARTICLE_FILTER_H_
 #define PARTICLE_FILTER_H_
 
+#include <random>
+#include <algorithm>
+#include <iostream>
+#include <numeric>
+#include <math.h> 
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <iterator>
+
 #include "helper_functions.h"
+
+using namespace std;
+
 
 struct Particle {
 
@@ -30,7 +43,11 @@ class ParticleFilter {
 	// Number of particles to draw
 	int num_particles; 
 	
-	
+	// Standard deviation of x, y and theta measurement
+	double std_x;
+	double std_y;
+	double std_theta;
+	double gauss_norm;
 	
 	// Flag, if filter is initialized
 	bool is_initialized;
@@ -45,7 +62,7 @@ public:
 
 	// Constructor
 	// @param num_particles Number of particles
-	ParticleFilter() : num_particles(0), is_initialized(false) {}
+	ParticleFilter() : num_particles(100), is_initialized(false) {}
 
 	// Destructor
 	~ParticleFilter() {}
@@ -78,7 +95,7 @@ public:
 	 * @param predicted Vector of predicted landmark observations
 	 * @param observations Vector of landmark observations
 	 */
-	void dataAssociation(std::vector<LandmarkObs> predicted, std::vector<LandmarkObs>& observations);
+	void dataAssociation(const Map &map_landmarks, std::vector<LandmarkObs>& projected);
 	
 	/**
 	 * updateWeights Updates the weights for each particle based on the likelihood of the 

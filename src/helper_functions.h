@@ -13,6 +13,7 @@
 #include <math.h>
 #include <vector>
 #include "map.h"
+#include "helper_functions.h"
 
 // for portability of M_PI (Vis Studio, MinGW, etc.)
 #ifndef M_PI
